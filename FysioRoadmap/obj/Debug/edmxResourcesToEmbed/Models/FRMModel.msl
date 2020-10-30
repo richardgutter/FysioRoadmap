@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FRMModelStoreContainer" CdmEntityContainer="FRMModelContainer">
+    <EntitySetMapping Name="VerzekerdeSet">
+      <EntityTypeMapping TypeName="IsTypeOf(FRMModel.Verzekerde)">
+        <MappingFragment StoreEntitySet="VerzekerdeSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NaamVerzekerde" ColumnName="NaamVerzekerde" />
+          <ScalarProperty Name="Geboortedatum" ColumnName="Geboortedatum" />
+          <ScalarProperty Name="VerzekeringId" ColumnName="VerzekeringId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VerzekeringSet">
+      <EntityTypeMapping TypeName="IsTypeOf(FRMModel.Verzekering)">
+        <MappingFragment StoreEntitySet="VerzekeringSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Naamverzekering" ColumnName="Naamverzekering" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AfspraakSet">
+      <EntityTypeMapping TypeName="IsTypeOf(FRMModel.Afspraak)">
+        <MappingFragment StoreEntitySet="AfspraakSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Datum" ColumnName="Datum" />
+          <ScalarProperty Name="VerzekerdeId" ColumnName="VerzekerdeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VerzekeringsregelSet">
+      <EntityTypeMapping TypeName="IsTypeOf(FRMModel.Verzekeringsregel)">
+        <MappingFragment StoreEntitySet="VerzekeringsregelSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="VerzekeringId" ColumnName="VerzekeringId" />
+          <ScalarProperty Name="Minleeftijd" ColumnName="Minleeftijd" />
+          <ScalarProperty Name="Maxleeftijd" ColumnName="Maxleeftijd" />
+          <ScalarProperty Name="BedragBehandeling" ColumnName="BedragBehandeling" />
+          <ScalarProperty Name="Jaartotaal" ColumnName="Jaartotaal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DeclaratieSet">
+      <EntityTypeMapping TypeName="IsTypeOf(FRMModel.Declaratie)">
+        <MappingFragment StoreEntitySet="DeclaratieSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DatumBehandeling" ColumnName="DatumBehandeling" />
+          <ScalarProperty Name="DeclaratieBedrag" ColumnName="DeclaratieBedrag" />
+          <ScalarProperty Name="Totaal" ColumnName="Totaal" />
+          <ScalarProperty Name="VerzekerdeId" ColumnName="VerzekerdeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

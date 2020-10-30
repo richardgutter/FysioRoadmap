@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FRMModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="FRMModelStoreContainer">
+    <EntitySet Name="VerzekerdeSet" EntityType="FRMModel.Store.VerzekerdeSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="VerzekeringSet" EntityType="FRMModel.Store.VerzekeringSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AfspraakSet" EntityType="FRMModel.Store.AfspraakSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="VerzekeringsregelSet" EntityType="FRMModel.Store.VerzekeringsregelSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DeclaratieSet" EntityType="FRMModel.Store.DeclaratieSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Afsprakenverzekerde" Association="FRMModel.Store.FK_Afsprakenverzekerde">
+      <End Role="Verzekerde" EntitySet="VerzekerdeSet" />
+      <End Role="Afspraken" EntitySet="AfspraakSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Verzekerdeverzekering" Association="FRMModel.Store.FK_Verzekerdeverzekering">
+      <End Role="Verzekering" EntitySet="VerzekeringSet" />
+      <End Role="Verzekerde" EntitySet="VerzekerdeSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Verzekeringsregelverzekering" Association="FRMModel.Store.FK_Verzekeringsregelverzekering">
+      <End Role="Verzekering" EntitySet="VerzekeringSet" />
+      <End Role="Verzekeringsregel" EntitySet="VerzekeringsregelSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Declaratieverzekerde" Association="FRMModel.Store.FK_Declaratieverzekerde">
+      <End Role="Verzekerde" EntitySet="VerzekerdeSet" />
+      <End Role="Declaratie" EntitySet="DeclaratieSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="VerzekerdeSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NaamVerzekerde" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Geboortedatum" Type="datetime" Nullable="false" />
+    <Property Name="VerzekeringId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VerzekeringSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Naamverzekering" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AfspraakSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Datum" Type="datetime" Nullable="false" />
+    <Property Name="VerzekerdeId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VerzekeringsregelSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VerzekeringId" Type="int" Nullable="false" />
+    <Property Name="Minleeftijd" Type="smallint" Nullable="false" />
+    <Property Name="Maxleeftijd" Type="smallint" Nullable="false" />
+    <Property Name="BedragBehandeling" Type="decimal" Nullable="false" Precision="10" Scale="4" />
+    <Property Name="Jaartotaal" Type="decimal" Nullable="false" Precision="10" Scale="4" />
+  </EntityType>
+  <EntityType Name="DeclaratieSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DatumBehandeling" Type="datetime" Nullable="false" />
+    <Property Name="DeclaratieBedrag" Type="decimal" Nullable="false" Precision="10" Scale="4" />
+    <Property Name="Totaal" Type="decimal" Nullable="false" Precision="10" Scale="4" />
+    <Property Name="VerzekerdeId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Afsprakenverzekerde">
+    <End Role="Verzekerde" Type="FRMModel.Store.VerzekerdeSet" Multiplicity="1" />
+    <End Role="Afspraken" Type="FRMModel.Store.AfspraakSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Verzekerde">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Afspraken">
+        <PropertyRef Name="VerzekerdeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Verzekerdeverzekering">
+    <End Role="Verzekering" Type="FRMModel.Store.VerzekeringSet" Multiplicity="1" />
+    <End Role="Verzekerde" Type="FRMModel.Store.VerzekerdeSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Verzekering">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Verzekerde">
+        <PropertyRef Name="VerzekeringId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Verzekeringsregelverzekering">
+    <End Role="Verzekering" Type="FRMModel.Store.VerzekeringSet" Multiplicity="1" />
+    <End Role="Verzekeringsregel" Type="FRMModel.Store.VerzekeringsregelSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Verzekering">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Verzekeringsregel">
+        <PropertyRef Name="VerzekeringId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Declaratieverzekerde">
+    <End Role="Verzekerde" Type="FRMModel.Store.VerzekerdeSet" Multiplicity="1" />
+    <End Role="Declaratie" Type="FRMModel.Store.DeclaratieSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Verzekerde">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Declaratie">
+        <PropertyRef Name="VerzekerdeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

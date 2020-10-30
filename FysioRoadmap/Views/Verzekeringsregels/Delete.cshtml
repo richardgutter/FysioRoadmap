@@ -1,0 +1,64 @@
+﻿@model FysioRoadmap.Models.Verzekeringsregel
+
+@{
+    ViewBag.Title = "Verzekeringsregel";
+}
+
+<h2>Verzekeringsregel</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Delete</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.VerzekeringSet.Naamverzekering)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VerzekeringSet.Naamverzekering)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Minleeftijd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Minleeftijd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Maxleeftijd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Maxleeftijd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BedragBehandeling)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BedragBehandeling)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Jaartotaal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Jaartotaal)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

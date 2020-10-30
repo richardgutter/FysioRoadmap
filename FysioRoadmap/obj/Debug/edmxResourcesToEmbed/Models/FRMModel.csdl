@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="FRMModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="FRMModelContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="VerzekerdeSet" EntityType="FRMModel.Verzekerde" />
+    <EntitySet Name="VerzekeringSet" EntityType="FRMModel.Verzekering" />
+    <EntitySet Name="AfspraakSet" EntityType="FRMModel.Afspraak" />
+    <EntitySet Name="VerzekeringsregelSet" EntityType="FRMModel.Verzekeringsregel" />
+    <AssociationSet Name="FK_Afsprakenverzekerde" Association="FRMModel.FK_Afsprakenverzekerde">
+      <End Role="Verzekerde" EntitySet="VerzekerdeSet" />
+      <End Role="Afspraken" EntitySet="AfspraakSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Verzekerdeverzekering" Association="FRMModel.FK_Verzekerdeverzekering">
+      <End Role="Verzekering" EntitySet="VerzekeringSet" />
+      <End Role="Verzekerde" EntitySet="VerzekerdeSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Verzekeringsregelverzekering" Association="FRMModel.FK_Verzekeringsregelverzekering">
+      <End Role="Verzekering" EntitySet="VerzekeringSet" />
+      <End Role="Verzekeringsregel" EntitySet="VerzekeringsregelSet" />
+    </AssociationSet>
+    <EntitySet Name="DeclaratieSet" EntityType="FRMModel.Declaratie" />
+    <AssociationSet Name="FK_Declaratieverzekerde" Association="FRMModel.FK_Declaratieverzekerde">
+      <End Role="Verzekerde" EntitySet="VerzekerdeSet" />
+      <End Role="Declaratie" EntitySet="DeclaratieSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Verzekerde">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NaamVerzekerde" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Geboortedatum" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="VerzekeringId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AfsprakenSet" Relationship="FRMModel.FK_Afsprakenverzekerde" FromRole="Verzekerde" ToRole="Afspraken" />
+    <NavigationProperty Name="VerzekeringSet" Relationship="FRMModel.FK_Verzekerdeverzekering" FromRole="Verzekerde" ToRole="Verzekering" />
+    <NavigationProperty Name="DeclaratieSet" Relationship="FRMModel.FK_Declaratieverzekerde" FromRole="Verzekerde" ToRole="Declaratie" />
+  </EntityType>
+  <EntityType Name="Verzekering">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="VerzekerdeSet" Relationship="FRMModel.FK_Verzekerdeverzekering" FromRole="Verzekering" ToRole="Verzekerde" />
+    <NavigationProperty Name="VerzekeringsregelSet" Relationship="FRMModel.FK_Verzekeringsregelverzekering" FromRole="Verzekering" ToRole="Verzekeringsregel" />
+    <Property Name="Naamverzekering" Type="String" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Afspraak">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Datum" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="VerzekerdeId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="VerzekerdeSet" Relationship="FRMModel.FK_Afsprakenverzekerde" FromRole="Afspraken" ToRole="Verzekerde" />
+  </EntityType>
+  <EntityType Name="Verzekeringsregel">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VerzekeringId" Type="Int32" Nullable="false" />
+    <Property Name="Minleeftijd" Type="Int16" Nullable="false" />
+    <Property Name="Maxleeftijd" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="VerzekeringSet" Relationship="FRMModel.FK_Verzekeringsregelverzekering" FromRole="Verzekeringsregel" ToRole="Verzekering" />
+    <Property Name="BedragBehandeling" Type="Decimal" Nullable="false" Precision="10" Scale="4" />
+    <Property Name="Jaartotaal" Type="Decimal" Nullable="false" Precision="10" Scale="4" />
+  </EntityType>
+  <Association Name="FK_Afsprakenverzekerde">
+    <End Type="FRMModel.Verzekerde" Role="Verzekerde" Multiplicity="1" />
+    <End Type="FRMModel.Afspraak" Role="Afspraken" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Verzekerde">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Afspraken">
+        <PropertyRef Name="VerzekerdeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Verzekerdeverzekering">
+    <End Type="FRMModel.Verzekering" Role="Verzekering" Multiplicity="1" />
+    <End Type="FRMModel.Verzekerde" Role="Verzekerde" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Verzekering">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Verzekerde">
+        <PropertyRef Name="VerzekeringId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Verzekeringsregelverzekering">
+    <End Type="FRMModel.Verzekering" Role="Verzekering" Multiplicity="1" />
+    <End Type="FRMModel.Verzekeringsregel" Role="Verzekeringsregel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Verzekering">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Verzekeringsregel">
+        <PropertyRef Name="VerzekeringId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Declaratie">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DatumBehandeling" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DeclaratieBedrag" Type="Decimal" Nullable="false" Precision="10" Scale="4" />
+    <Property Name="Totaal" Type="Decimal" Nullable="false" Precision="10" Scale="4" />
+    <Property Name="VerzekerdeId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="VerzekerdeSet" Relationship="FRMModel.FK_Declaratieverzekerde" FromRole="Declaratie" ToRole="Verzekerde" />
+  </EntityType>
+  <Association Name="FK_Declaratieverzekerde">
+    <End Type="FRMModel.Verzekerde" Role="Verzekerde" Multiplicity="1" />
+    <End Type="FRMModel.Declaratie" Role="Declaratie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Verzekerde">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Declaratie">
+        <PropertyRef Name="VerzekerdeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

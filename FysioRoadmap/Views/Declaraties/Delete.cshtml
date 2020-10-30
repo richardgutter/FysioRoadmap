@@ -1,0 +1,56 @@
+﻿@model FysioRoadmap.Models.Declaratie
+
+@{
+    ViewBag.Title = "Declaratie";
+}
+
+<h2>Declaratie</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Delete</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DatumBehandeling)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumBehandeling)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeclaratieBedrag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeclaratieBedrag)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Totaal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Totaal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VerzekerdeSet.NaamVerzekerde)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VerzekerdeSet.NaamVerzekerde)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

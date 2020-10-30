@@ -1,0 +1,42 @@
+﻿@model IEnumerable<FysioRoadmap.Models.Declaratie>
+
+@{
+    ViewBag.Title = "Declaraties";
+}
+
+<h2>Declaraties</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.VerzekerdeSet.NaamVerzekerde)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DatumBehandeling)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeclaratieBedrag)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Totaal)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.VerzekerdeSet.NaamVerzekerde)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatumBehandeling)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeclaratieBedrag)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Totaal)
+        </td>
+    </tr>
+}
+
+</table>

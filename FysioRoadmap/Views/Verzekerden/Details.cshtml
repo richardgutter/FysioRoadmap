@@ -1,0 +1,42 @@
+﻿@model FysioRoadmap.Models.Verzekerde
+
+@{
+    ViewBag.Title = "Verzekerde";
+}
+
+<h2>Verzekerde</h2>
+
+<div>
+    <h4>Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NaamVerzekerde)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NaamVerzekerde)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Geboortedatum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Geboortedatum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VerzekeringSet.Naamverzekering)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VerzekeringSet.Naamverzekering)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
